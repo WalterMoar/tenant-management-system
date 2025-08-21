@@ -1,7 +1,7 @@
 import { authenticatedAxios } from './authenticated.axios'
 import { isDuplicateEntityError, isValidationError, logApiError } from './utils'
 import { DuplicateEntityError, ValidationError } from '@/errors'
-import { type TenantId, User } from '@/models'
+import { type RoleId, type TenantId, User } from '@/models'
 
 const api = authenticatedAxios()
 
@@ -64,7 +64,7 @@ export const tenantService = {
   async assignUserRoles(
     tenantId: TenantId,
     userId: string,
-    roleId: string,
+    roleId: RoleId,
   ): Promise<void> {
     try {
       await api.put(`/tenants/${tenantId}/users/${userId}/roles/${roleId}`)
@@ -248,7 +248,7 @@ export const tenantService = {
   async removeUserRole(
     tenantId: TenantId,
     userId: string,
-    roleId: string,
+    roleId: RoleId,
   ): Promise<void> {
     try {
       await api.delete(`/tenants/${tenantId}/users/${userId}/roles/${roleId}`)

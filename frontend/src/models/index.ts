@@ -9,4 +9,4 @@ export {
   type TenantRequestDetailFields,
   type TenantRequestId,
 } from './tenantrequest.model'
-export { User } from './user.model'
+export { User, type UserId } from './user.model'

@@ -1,5 +1,12 @@
 import { describe, it, expect } from 'vitest'
-import { Role, type RoleId, SsoUser, type SsoUserId, User } from '@/models'
+import {
+  Role,
+  type RoleId,
+  SsoUser,
+  type SsoUserId,
+  User,
+  type UserId,
+} from '@/models'
 
 describe('User model', () => {
   it('constructor assigns properties correctly', () => {
@@ -12,7 +19,7 @@ describe('User model', () => {
       'email@example.com',
     )
     const roles = [new Role('r1' as RoleId, 'role1', 'desc1')]
-    const user = new User('user1', ssoUser, roles)
+    const user = new User('user1' as UserId, ssoUser, roles)
 
     expect(user.id).toBe('user1')
     expect(user.ssoUser).toBe(ssoUser)
@@ -36,7 +43,7 @@ describe('User model', () => {
 
   it('fromApiData converts API data to User instance correctly', () => {
     const apiData = {
-      id: 'userApi',
+      id: 'userApi' as UserId,
       ssoUser: {
         ssoUserId: 'ssoApi' as SsoUserId,
         userName: 'usernameApi',
@@ -61,7 +68,7 @@ describe('User model', () => {
 
   it('fromApiData handles missing roles gracefully', () => {
     const apiData = {
-      id: 'userApiNoRoles',
+      id: 'userApiNoRoles' as UserId,
       ssoUser: {
         ssoUserId: 'ssoNoRoles' as SsoUserId,
         userName: 'usernameNoRoles',

@@ -5,6 +5,7 @@ import {
   type TenantRequestDetailFields,
   type TenantRequestId,
   User,
+  type UserId,
 } from '@/models'
 import * as utils from '@/services/utils'
 
@@ -50,7 +51,7 @@ describe('tenantRequestService', () => {
   const ssoUserId = '789' as SsoUserId
 
   const fakeUser: User = {
-    id: '1',
+    id: '1' as UserId,
     ssoUser: {
       displayName: 'John Doe',
       email: 'john.doe@example.com',

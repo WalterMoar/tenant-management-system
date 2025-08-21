@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { Tenant, User, SsoUser, type SsoUserId } from '@/models'
+import { Tenant, User, SsoUser, type SsoUserId, type UserId } from '@/models'
 import {
   currentUserHasRole,
   currentUserIsOperationsAdmin,
@@ -60,7 +60,7 @@ describe('User Permissions Utils', () => {
         'John Doe',
         'john.doe@example.com',
       )
-      const mockUser = new User('123', mockSsoUser, [])
+      const mockUser = new User('123' as UserId, mockSsoUser, [])
       mockAuthStore.authenticatedUser = mockUser
       vi.mocked(mockTenant.userHasRole).mockReturnValue(true)
 
@@ -80,7 +80,7 @@ describe('User Permissions Utils', () => {
         'John Doe',
         'john.doe@example.com',
       )
-      const mockUser = new User('123', mockSsoUser, [])
+      const mockUser = new User('123' as UserId, mockSsoUser, [])
       mockAuthStore.authenticatedUser = mockUser
       vi.mocked(mockTenant.userHasRole).mockReturnValue(false)
 
@@ -99,7 +99,7 @@ describe('User Permissions Utils', () => {
         'Jane Smith',
         'jane.smith@example.com',
       )
-      const mockUser = new User('456', mockSsoUser, [])
+      const mockUser = new User('456' as UserId, mockSsoUser, [])
       mockAuthStore.authenticatedUser = mockUser
       vi.mocked(mockTenant.userHasRole).mockReturnValue(true)
 
@@ -125,7 +125,7 @@ describe('User Permissions Utils', () => {
         'Bob Wilson',
         'bob.wilson@example.com',
       )
-      const mockUser = new User('789', mockSsoUser, [])
+      const mockUser = new User('789' as UserId, mockSsoUser, [])
       mockAuthStore.authenticatedUser = mockUser
       vi.mocked(mockTenant.userHasRole).mockReturnValue(false)
 
@@ -175,7 +175,7 @@ describe('User Permissions Utils', () => {
         'Admin User',
         'admin.user@example.com',
       )
-      const mockUser = new User('999', mockSsoUser, [])
+      const mockUser = new User('999' as UserId, mockSsoUser, [])
       mockAuthStore.authenticatedUser = mockUser
       mockAuthStore.isOperationsAdmin = true
       vi.mocked(mockTenant.userHasRole).mockReturnValue(true)
@@ -200,7 +200,7 @@ describe('User Permissions Utils', () => {
         'Regular User',
         'regular.user@example.com',
       )
-      const mockUser = new User('888', mockSsoUser, [])
+      const mockUser = new User('888' as UserId, mockSsoUser, [])
       mockAuthStore.authenticatedUser = mockUser
       mockAuthStore.isOperationsAdmin = false
       vi.mocked(mockTenant.userHasRole).mockReturnValue(false)

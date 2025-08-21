@@ -6,6 +6,7 @@ import {
   type SsoUserId,
   type TenantId,
   User,
+  type UserId,
 } from '@/models'
 import * as utils from '@/services/utils'
 
@@ -58,7 +59,7 @@ describe('groupService', () => {
   }
 
   const fakeUser: User = {
-    id: 'user123',
+    id: 'user123' as UserId,
     ssoUser: {
       displayName: 'John Doe',
       email: 'john.doe@example.com',

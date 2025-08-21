@@ -6,6 +6,7 @@ import {
   Role,
   type SsoUserId,
   User,
+  type UserId,
 } from '@/models'
 
 const fakeSsoUser = {
@@ -18,7 +19,7 @@ const fakeSsoUser = {
 }
 
 const fakeUserData = {
-  id: 'user1',
+  id: 'user1' as UserId,
   roles: [] as Role[],
   ssoUser: fakeSsoUser,
 }
@@ -27,7 +28,6 @@ describe('GroupUser model', () => {
   let mockedUserInstance: User
 
   beforeEach(() => {
-    // Create a real User instance or a complete mock
     mockedUserInstance = new User(
       fakeUserData.id,
       fakeUserData.ssoUser,
@@ -53,7 +53,7 @@ describe('GroupUser model', () => {
   it('fromApiData converts API data to GroupUser instance correctly', () => {
     const apiData = {
       id: 'groupUser123' as GroupUserId,
-      user: fakeUserData, // raw user data matching User.fromApiData input
+      user: fakeUserData,
     }
 
     const groupUser = GroupUser.fromApiData(apiData)

@@ -8,13 +8,14 @@ import {
   Tenant,
   type TenantId,
   User,
+  type UserId,
 } from '@/models'
 import { ROLES } from '@/utils/constants'
 
 describe('Tenant model', () => {
   beforeEach(() => {
     vi.spyOn(User, 'fromApiData').mockImplementation(
-      (apiData: { id: string; ssoUser: SsoUser; roles?: Role[] }) =>
+      (apiData: { id: UserId; ssoUser: SsoUser; roles?: Role[] }) =>
         new User(apiData.id, apiData.ssoUser, apiData.roles ?? []),
     )
   })
@@ -26,7 +27,7 @@ describe('Tenant model', () => {
   it('constructor assigns properties correctly', () => {
     const users = [
       new User(
-        'user1',
+        'user1' as UserId,
         new SsoUser(
           'sso1' as SsoUserId,
           'username1',
@@ -38,7 +39,7 @@ describe('Tenant model', () => {
         [new Role('r1' as RoleId, 'role1', 'desc1')],
       ),
       new User(
-        'user2',
+        'user2' as UserId,
         new SsoUser(
           'sso2' as SsoUserId,
           'username2',
@@ -88,7 +89,7 @@ describe('Tenant model', () => {
       ministryName: 'Ministry',
       users: [
         {
-          id: 'userA',
+          id: 'userA' as UserId,
           ssoUser: new SsoUser(
             'ssoA' as SsoUserId,
             'userA',
@@ -102,7 +103,7 @@ describe('Tenant model', () => {
           ],
         },
         {
-          id: 'userB',
+          id: 'userB' as UserId,
           ssoUser: new SsoUser(
             'ssoB' as SsoUserId,
             'userB',
@@ -151,7 +152,7 @@ describe('Tenant model', () => {
   it('findUser returns the user matching the ssoUserId', () => {
     const ssoUserId = 'sso1'
     const user = new User(
-      'user1',
+      'user1' as UserId,
       new SsoUser(
         ssoUserId as SsoUserId,
         'username1',
@@ -185,7 +186,7 @@ describe('Tenant model', () => {
     const otherRole = new Role('r2' as RoleId, 'SomeOtherRole', 'Other role')
 
     const ownerUser = new User(
-      'user1',
+      'user1' as UserId,
       new SsoUser(
         'sso1' as SsoUserId,
         'username1',
@@ -197,7 +198,7 @@ describe('Tenant model', () => {
       [ownerRole],
     )
     const otherUser = new User(
-      'user2',
+      'user2' as UserId,
       new SsoUser(
         'sso2' as SsoUserId,
         'username2',
@@ -226,7 +227,7 @@ describe('Tenant model', () => {
   it('userHasRole returns true if user has the role', () => {
     const roleName = ROLES.TENANT_OWNER.value
     const user = new User(
-      'user1',
+      'user1' as UserId,
       new SsoUser(
         'sso1' as SsoUserId,
         'username1',
@@ -254,7 +255,7 @@ describe('Tenant model', () => {
   it('userHasRole returns false if user does not have the role or is not found', () => {
     const roleName = ROLES.TENANT_OWNER.value
     const user = new User(
-      'user1',
+      'user1' as UserId,
       new SsoUser(
         'sso1' as SsoUserId,
         'username1',
@@ -280,7 +281,7 @@ describe('Tenant model', () => {
 
     // User not found in tenant users
     const unknownUser = new User(
-      'user2',
+      'user2' as UserId,
       new SsoUser(
         'sso2' as SsoUserId,
         'username2',

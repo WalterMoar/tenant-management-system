@@ -1,13 +1,18 @@
 import { Role, SsoUser, type SsoUserId } from '@/models'
 
 /**
+ * Branded type for User IDs to prevent mixing with other ID types.
+ */
+export type UserId = string & { readonly __brand: 'UserId' }
+
+/**
  * Represents a user in the system.
  */
 export class User {
   /**
    * Unique identifier for the user.
    */
-  id: string
+  id: UserId
 
   /**
    * Array of roles assigned to the user.
@@ -26,7 +31,7 @@ export class User {
    * @param ssoUser - The associated SSO user details
    * @param roles - Array of roles assigned to the user (default empty array)
    */
-  constructor(id: string, ssoUser: SsoUser, roles: Role[] = []) {
+  constructor(id: UserId, ssoUser: SsoUser, roles: Role[] = []) {
     this.id = id
     this.roles = Array.isArray(roles) ? roles : []
     this.ssoUser = ssoUser
@@ -42,7 +47,7 @@ export class User {
    * @returns A new User instance
    */
   static fromApiData(apiData: {
-    id: string
+    id: UserId
     ssoUser: SsoUser
     roles?: Role[]
   }): User {
@@ -81,15 +86,18 @@ export class User {
     // The SSO API doesn't always return the expected fields - try to be lenient
     // but note that if the username is undefined then it will cause issues.
     const attributes = searchData.attributes
-    const userId = (attributes.idir_user_guid?.[0] ??
+    const ssoUserId = (attributes.idir_user_guid?.[0] ??
       attributes.idir_userid?.[0] ??
       '') as SsoUserId
+    const userId = (attributes.idir_user_guid?.[0] ??
+      attributes.idir_userid?.[0] ??
+      '') as UserId
     const username = attributes.idir_username?.[0]
     const displayName =
       attributes.display_name?.[0] ?? attributes.displayName?.[0] ?? ''
 
     const ssoUser = new SsoUser(
-      userId,
+      ssoUserId,
       username,
       searchData.firstName,
       searchData.lastName,
