@@ -10,7 +10,7 @@ import BreadcrumbBar from '@/components/ui/BreadcrumbBar.vue'
 import LoadingWrapper from '@/components/ui/LoadingWrapper.vue'
 import { useNotification } from '@/composables'
 import { DomainError, DuplicateEntityError } from '@/errors'
-import { type GroupDetailFields, type TenantId } from '@/models'
+import { type GroupDetailFields, type GroupId, type TenantId } from '@/models'
 import { useGroupStore, useTenantStore } from '@/stores'
 
 // --- Store and Composable Setup ----------------------------------------------
@@ -55,11 +55,13 @@ const breadcrumbs = computed(() => {
   ]
 })
 
-const routeGroupId = computed(() =>
-  Array.isArray(route.params.groupId)
+const routeGroupId = computed((): GroupId => {
+  const rawId = Array.isArray(route.params.groupId)
     ? route.params.groupId[0]
-    : route.params.groupId,
-)
+    : route.params.groupId
+
+  return (rawId || '') as GroupId
+})
 
 const routeTenantId = computed((): TenantId => {
   const rawId = Array.isArray(route.params.tenantId)

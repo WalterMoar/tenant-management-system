@@ -1,6 +1,11 @@
 import { GroupUser } from '@/models'
 
 /**
+ * Branded type for Group IDs to prevent mixing with other ID types.
+ */
+export type GroupId = string & { readonly __brand: 'GroupId' }
+
+/**
  * Utility type that represents the subset of Group properties used in the form
  * that edits these fields.
  */
@@ -30,7 +35,7 @@ export class Group {
   /**
    * Unique identifier for the group.
    */
-  id: string
+  id: GroupId
 
   /**
    * Display name of the group.
@@ -57,7 +62,7 @@ export class Group {
     createdBy: string,
     createdDate: string,
     description: string,
-    id: string,
+    id: GroupId,
     name: string,
     groupUsers: GroupUser[],
   ) {
@@ -89,7 +94,7 @@ export class Group {
     createdBy: string
     createdDateTime: string
     description: string
-    id: string
+    id: GroupId
     name: string
     users: GroupUser[]
   }): Group {

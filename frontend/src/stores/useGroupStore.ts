@@ -1,7 +1,14 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
-import { Group, type GroupDetailFields, GroupUser, User } from '@/models'
+import {
+  Group,
+  type GroupDetailFields,
+  type GroupId,
+  GroupUser,
+  type TenantId,
+  User,
+} from '@/models'
 import { groupService } from '@/services'
 
 /**
@@ -35,13 +42,13 @@ export const useGroupStore = defineStore('group', () => {
   /**
    * Creates a new group and adds it to the store.
    *
-   * @param {string} tenantId - The ID of the tenant.
+   * @param {TenantId} tenantId - The ID of the tenant.
    * @param {string} name - The name of the group.
    * @param {string} description - The description of the group.
    * @returns {Promise<Group>} The created group.
    */
   const addGroup = async (
-    tenantId: string,
+    tenantId: TenantId,
     name: string,
     description: string,
   ) => {
@@ -58,15 +65,15 @@ export const useGroupStore = defineStore('group', () => {
   /**
    * Adds a user to a group.
    *
-   * @param {string} tenantId - The ID of the tenant.
-   * @param {string} groupId - The ID of the group.
+   * @param {TenantId} tenantId - The ID of the tenant.
+   * @param {GroupId} groupId - The ID of the group.
    * @param {User} user - The user to add to the group.
    * @throws {Error} If the group is not found in the store.
    * @returns {Promise<void>}
    */
   const addGroupUser = async (
-    tenantId: string,
-    groupId: string,
+    tenantId: TenantId,
+    groupId: GroupId,
     user: User,
   ) => {
     // Grab the existing group from the store, to confirm the ID and for use
@@ -90,11 +97,11 @@ export const useGroupStore = defineStore('group', () => {
   /**
    * Fetches a single group from the API and updates the store.
    *
-   * @param {string} tenantId - The ID of the tenant.
-   * @param {string} groupId - The ID of the group.
+   * @param {TenantId} tenantId - The ID of the tenant.
+   * @param {GroupId} groupId - The ID of the group.
    * @returns {Promise<Group>} The fetched group.
    */
-  const fetchGroup = async (tenantId: string, groupId: string) => {
+  const fetchGroup = async (tenantId: TenantId, groupId: GroupId) => {
     loading.value = true
     try {
       const groupData = await groupService.getGroup(tenantId, groupId)
@@ -109,10 +116,10 @@ export const useGroupStore = defineStore('group', () => {
   /**
    * Fetches all groups for a tenant from the API and updates the store.
    *
-   * @param {string} tenantId - The ID of the tenant.
+   * @param {TenantId} tenantId - The ID of the tenant.
    * @returns {Promise<void>}
    */
-  const fetchGroups = async (tenantId: string) => {
+  const fetchGroups = async (tenantId: TenantId) => {
     loading.value = true
     try {
       const groupList = await groupService.getTenantGroups(tenantId)
@@ -125,25 +132,25 @@ export const useGroupStore = defineStore('group', () => {
   /**
    * Retrieves a group by its ID from the store.
    *
-   * @param {string} groupId - The ID of the group.
+   * @param {GroupId} groupId - The ID of the group.
    * @returns {Group|undefined} The group if found, otherwise undefined.
    */
-  function getGroup(groupId: string): Group | undefined {
+  function getGroup(groupId: GroupId): Group | undefined {
     return groups.value.find((g) => g.id === groupId)
   }
 
   /**
    * Removes a user from a group.
    *
-   * @param {string} tenantId - The ID of the tenant.
-   * @param {string} groupId - The ID of the group.
+   * @param {TenantId} tenantId - The ID of the tenant.
+   * @param {GroupId} groupId - The ID of the group.
    * @param {string} groupUserId - The ID of the user in the group.
    * @throws {Error} If the group is not found in the store.
    * @returns {Promise<void>}
    */
   const removeGroupUser = async (
-    tenantId: string,
-    groupId: string,
+    tenantId: TenantId,
+    groupId: GroupId,
     groupUserId: string,
   ) => {
     // Grab the existing group from the store, to confirm the ID and for use
@@ -165,15 +172,15 @@ export const useGroupStore = defineStore('group', () => {
   /**
    * Updates the details of a group.
    *
-   * @param {string} tenantId - The ID of the tenant.
-   * @param {string} groupId - The ID of the group.
+   * @param {TenantId} tenantId - The ID of the tenant.
+   * @param {GroupId} groupId - The ID of the group.
    * @param {GroupDetailFields} groupDetails - The new group details.
    * @throws {Error} If the group is not found in the store.
    * @returns {Promise<void>}
    */
   const updateGroupDetails = async (
-    tenantId: string,
-    groupId: string,
+    tenantId: TenantId,
+    groupId: GroupId,
     groupDetails: GroupDetailFields,
   ) => {
     // Grab the existing group from the store, to confirm the ID and for use

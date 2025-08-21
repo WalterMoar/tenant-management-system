@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { Group, GroupUser } from '@/models'
+import { Group, type GroupId, GroupUser } from '@/models'
 
 describe('Group model', () => {
   beforeEach(() => {
@@ -22,7 +22,7 @@ describe('Group model', () => {
       'creatorUser',
       '2025-08-01',
       'Group description',
-      'group123',
+      'group123' as GroupId,
       'Group Name',
       groupUsers,
     )
@@ -35,7 +35,7 @@ describe('Group model', () => {
       'creatorUser',
       '2025-08-01',
       'Group description',
-      'group123',
+      'group123' as GroupId,
       'Group Name',
       null as unknown as GroupUser[],
     )
@@ -48,7 +48,7 @@ describe('Group model', () => {
       createdBy: 'creatorUser',
       createdDateTime: '2025-08-01',
       description: 'API description',
-      id: 'group456',
+      id: 'group456' as GroupId,
       name: 'API Group',
       users: [
         { user: { id: 'userA' } },
@@ -74,7 +74,7 @@ describe('Group model', () => {
       createdBy: 'creatorUser',
       createdDateTime: '2025-08-01',
       description: 'API description',
-      id: 'group789',
+      id: 'group789' as GroupId,
       name: 'API Group',
       users: null,
     }

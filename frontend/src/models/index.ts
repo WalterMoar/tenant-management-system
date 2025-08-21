@@ -1,4 +1,4 @@
-export { Group, type GroupDetailFields } from './group.model'
+export { Group, type GroupDetailFields, type GroupId } from './group.model'
 export { GroupUser } from './groupuser.model'
 export { Role } from './role.model'
 export { Service } from './service.model'
