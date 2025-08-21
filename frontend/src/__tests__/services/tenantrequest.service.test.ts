@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
+import { type TenantRequestId } from '@/models'
 import * as utils from '@/services/utils'
 
 vi.mock('@/services/utils', () => ({
@@ -41,7 +42,7 @@ import { type TenantRequestDetailFields, User } from '@/models'
 import { tenantRequestService } from '@/services'
 
 describe('tenantRequestService', () => {
-  const requestId = '123'
+  const tenantRequestId = '123' as TenantRequestId
   const ssoUserId = '789'
 
   const fakeUser: User = {
@@ -64,7 +65,7 @@ describe('tenantRequestService', () => {
   }
 
   const fakeTenantRequest = {
-    id: requestId,
+    id: tenantRequestId,
     name: fakeTenantRequestDetails.name,
     ministryName: fakeTenantRequestDetails.ministryName,
     description: fakeTenantRequestDetails.description,
@@ -232,10 +233,13 @@ describe('tenantRequestService', () => {
     it('should successfully update status without rejection reason', async () => {
       mockPatch.mockResolvedValueOnce({})
 
-      await tenantRequestService.updateTenantRequestStatus(requestId, status)
+      await tenantRequestService.updateTenantRequestStatus(
+        tenantRequestId,
+        status,
+      )
 
       expect(mockPatch).toHaveBeenCalledWith(
-        `/tenant-requests/${requestId}/status`,
+        `/tenant-requests/${tenantRequestId}/status`,
         {
           status,
         },
@@ -247,13 +251,13 @@ describe('tenantRequestService', () => {
       mockPatch.mockResolvedValueOnce({})
 
       await tenantRequestService.updateTenantRequestStatus(
-        requestId,
+        tenantRequestId,
         rejectedStatus,
         rejectionReason,
       )
 
       expect(mockPatch).toHaveBeenCalledWith(
-        `/tenant-requests/${requestId}/status`,
+        `/tenant-requests/${tenantRequestId}/status`,
         {
           status: rejectedStatus,
           rejectionReason,
@@ -265,13 +269,13 @@ describe('tenantRequestService', () => {
       mockPatch.mockResolvedValueOnce({})
 
       await tenantRequestService.updateTenantRequestStatus(
-        requestId,
+        tenantRequestId,
         status,
         '',
       )
 
       expect(mockPatch).toHaveBeenCalledWith(
-        `/tenant-requests/${requestId}/status`,
+        `/tenant-requests/${tenantRequestId}/status`,
         {
           status,
         },
@@ -298,7 +302,7 @@ describe('tenantRequestService', () => {
 
       await expect(
         tenantRequestService.updateTenantRequestStatus(
-          requestId,
+          tenantRequestId,
           'INVALID_STATUS',
         ),
       ).rejects.toBeInstanceOf(ValidationError)
@@ -321,7 +325,7 @@ describe('tenantRequestService', () => {
       mockedUtils.isDuplicateEntityError.mockReturnValueOnce(true)
 
       await expect(
-        tenantRequestService.updateTenantRequestStatus(requestId, status),
+        tenantRequestService.updateTenantRequestStatus(tenantRequestId, status),
       ).rejects.toBeInstanceOf(DuplicateEntityError)
 
       expect(mockedUtils.logApiError).toHaveBeenCalledWith(
@@ -335,7 +339,7 @@ describe('tenantRequestService', () => {
       mockPatch.mockRejectedValueOnce(genericError)
 
       await expect(
-        tenantRequestService.updateTenantRequestStatus(requestId, status),
+        tenantRequestService.updateTenantRequestStatus(tenantRequestId, status),
       ).rejects.toThrow(genericError)
 
       expect(mockedUtils.logApiError).toHaveBeenCalledWith(
@@ -358,17 +362,20 @@ describe('tenantRequestService', () => {
       mockedUtils.isDuplicateEntityError.mockReturnValueOnce(true)
 
       await expect(
-        tenantRequestService.updateTenantRequestStatus(requestId, status),
+        tenantRequestService.updateTenantRequestStatus(tenantRequestId, status),
       ).rejects.toBeInstanceOf(DuplicateEntityError)
     })
 
     it('should handle undefined rejection reason correctly', async () => {
       mockPatch.mockResolvedValueOnce({})
 
-      await tenantRequestService.updateTenantRequestStatus(requestId, status)
+      await tenantRequestService.updateTenantRequestStatus(
+        tenantRequestId,
+        status,
+      )
 
       expect(mockPatch).toHaveBeenCalledWith(
-        `/tenant-requests/${requestId}/status`,
+        `/tenant-requests/${tenantRequestId}/status`,
         {
           status,
         },

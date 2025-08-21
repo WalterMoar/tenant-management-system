@@ -7,5 +7,6 @@ export { Tenant, type TenantDetailFields, type TenantId } from './tenant.model'
 export {
   TenantRequest,
   type TenantRequestDetailFields,
+  type TenantRequestId,
 } from './tenantrequest.model'
 export { User } from './user.model'

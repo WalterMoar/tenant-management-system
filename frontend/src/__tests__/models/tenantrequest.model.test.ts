@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { TenantRequest } from '@/models'
+import { TenantRequest, type TenantRequestId } from '@/models'
 
 describe('TenantRequest model', () => {
   it('constructor assigns properties correctly and sets rejectionReason to empty string', () => {
@@ -8,7 +8,7 @@ describe('TenantRequest model', () => {
       'creatorUser',
       '2025-08-01',
       'Request description',
-      'request123',
+      'request123' as TenantRequestId,
       'Request Name',
       'Ministry',
       'NEW',
@@ -29,7 +29,7 @@ describe('TenantRequest model', () => {
       createdBy: 'creatorUser',
       createdDateTime: '2025-08-01',
       description: 'API request description',
-      id: 'request456',
+      id: 'request456' as TenantRequestId,
       name: 'API Request',
       ministryName: 'Ministry',
       status: 'REJECTED',
@@ -53,7 +53,7 @@ describe('TenantRequest model', () => {
       createdBy: 'creatorUser',
       createdDateTime: '2025-08-01',
       description: 'API request description',
-      id: 'request789',
+      id: 'request789' as TenantRequestId,
       name: 'API Request',
       ministryName: 'Ministry',
       status: 'APPROVED',

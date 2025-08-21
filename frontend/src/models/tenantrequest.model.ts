@@ -1,4 +1,9 @@
 /**
+ * Branded type for Tenant Request IDs to prevent mixing with other ID types.
+ */
+export type TenantRequestId = string & { readonly __brand: 'TenantRequestId' }
+
+/**
  * Utility type that represents the subset of Tenant Request properties used in
  * the form that edits these fields.
  */
@@ -31,7 +36,7 @@ export class TenantRequest {
   /**
    * Unique identifier for the tenant request.
    */
-  id: string
+  id: TenantRequestId
 
   /**
    * Display name of the tenant request.
@@ -71,7 +76,7 @@ export class TenantRequest {
     createdBy: string,
     createdDate: string,
     description: string,
-    id: string,
+    id: TenantRequestId,
     name: string,
     ministryName: string,
     status: string,
@@ -107,7 +112,7 @@ export class TenantRequest {
     createdBy: string
     createdDateTime: string
     description: string
-    id: string
+    id: TenantRequestId
     name: string
     ministryName: string
     rejectionReason?: string
