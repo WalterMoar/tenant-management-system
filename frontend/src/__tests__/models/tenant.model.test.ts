@@ -1,6 +1,13 @@
 import { describe, expect, it, beforeEach, afterEach, vi } from 'vitest'
 
-import { Role, SsoUser, Tenant, type TenantId, User } from '@/models'
+import {
+  Role,
+  type RoleId,
+  SsoUser,
+  Tenant,
+  type TenantId,
+  User,
+} from '@/models'
 import { ROLES } from '@/utils/constants'
 
 describe('Tenant model', () => {
@@ -27,7 +34,7 @@ describe('Tenant model', () => {
           'Display',
           'email1@example.com',
         ),
-        [new Role('r1', 'role1', 'desc1')],
+        [new Role('r1' as RoleId, 'role1', 'desc1')],
       ),
       new User(
         'user2',
@@ -39,7 +46,7 @@ describe('Tenant model', () => {
           'Display2',
           'email2@example.com',
         ),
-        [new Role('r2', 'role2', 'desc2')],
+        [new Role('r2' as RoleId, 'role2', 'desc2')],
       ),
     ]
 
@@ -89,7 +96,9 @@ describe('Tenant model', () => {
             'DisplayA',
             'a@example.com',
           ),
-          roles: [new Role('r1', ROLES.TENANT_OWNER.value, 'Owner role')],
+          roles: [
+            new Role('r1' as RoleId, ROLES.TENANT_OWNER.value, 'Owner role'),
+          ],
         },
         {
           id: 'userB',
@@ -101,7 +110,7 @@ describe('Tenant model', () => {
             'DisplayB',
             'b@example.com',
           ),
-          roles: [new Role('r2', 'SomeRole', 'Other role')],
+          roles: [new Role('r2' as RoleId, 'SomeRole', 'Other role')],
         },
       ],
     }
@@ -167,8 +176,12 @@ describe('Tenant model', () => {
   })
 
   it('getOwners returns users with TENANT_OWNER role', () => {
-    const ownerRole = new Role('r1', ROLES.TENANT_OWNER.value, 'Owner role')
-    const otherRole = new Role('r2', 'SomeOtherRole', 'Other role')
+    const ownerRole = new Role(
+      'r1' as RoleId,
+      ROLES.TENANT_OWNER.value,
+      'Owner role',
+    )
+    const otherRole = new Role('r2' as RoleId, 'SomeOtherRole', 'Other role')
 
     const ownerUser = new User(
       'user1',
@@ -221,7 +234,7 @@ describe('Tenant model', () => {
         'Display',
         'email1@example.com',
       ),
-      [new Role('r1', roleName, 'Owner role')],
+      [new Role('r1' as RoleId, roleName, 'Owner role')],
     )
     const tenant = new Tenant(
       'creatorUser',
@@ -249,7 +262,7 @@ describe('Tenant model', () => {
         'Display',
         'email1@example.com',
       ),
-      [new Role('r1', 'SomeOtherRole', 'Other role')],
+      [new Role('r1' as RoleId, 'SomeOtherRole', 'Other role')],
     )
     const tenant = new Tenant(
       'creatorUser',
@@ -275,7 +288,7 @@ describe('Tenant model', () => {
         'Display2',
         'email2@example.com',
       ),
-      [new Role('r2', roleName, 'Owner role')],
+      [new Role('r2' as RoleId, roleName, 'Owner role')],
     )
     expect(tenant.userHasRole(unknownUser, roleName)).toBe(false)
   })

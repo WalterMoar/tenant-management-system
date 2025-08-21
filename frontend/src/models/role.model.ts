@@ -1,4 +1,9 @@
 /**
+ * Branded type for Role IDs to prevent mixing with other ID types.
+ */
+export type RoleId = string & { readonly __brand: 'RoleId' }
+
+/**
  * Represents a role within the system.
  */
 export class Role {
@@ -10,7 +15,7 @@ export class Role {
   /**
    * Unique identifier for the role.
    */
-  id: string
+  id: RoleId
 
   /**
    * Name of the role.
@@ -24,7 +29,7 @@ export class Role {
    * @param name - Name of the role
    * @param description - Description of the role
    */
-  constructor(id: string, name: string, description: string) {
+  constructor(id: RoleId, name: string, description: string) {
     this.description = description
     this.id = id
     this.name = name
@@ -41,7 +46,7 @@ export class Role {
    */
   static fromApiData(apiData: {
     description: string
-    id: string
+    id: RoleId
     name: string
   }): Role {
     return new Role(apiData.id, apiData.name, apiData.description)

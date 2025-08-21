@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { Role, SsoUser, User } from '@/models'
+import { Role, type RoleId, SsoUser, User } from '@/models'
 
 describe('User model', () => {
   it('constructor assigns properties correctly', () => {
@@ -11,7 +11,7 @@ describe('User model', () => {
       'Display',
       'email@example.com',
     )
-    const roles = [new Role('r1', 'role1', 'desc1')]
+    const roles = [new Role('r1' as RoleId, 'role1', 'desc1')]
     const user = new User('user1', ssoUser, roles)
 
     expect(user.id).toBe('user1')
@@ -46,8 +46,8 @@ describe('User model', () => {
         email: 'api@example.com',
       },
       roles: [
-        { id: 'r1', name: 'role1', description: 'desc1' },
-        { id: 'r2', name: 'role2', description: 'desc2' },
+        { id: 'r1' as RoleId, name: 'role1', description: 'desc1' },
+        { id: 'r2' as RoleId, name: 'role2', description: 'desc2' },
       ],
     }
 
