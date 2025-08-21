@@ -1,6 +1,12 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { type GroupId, type GroupUserId, type TenantId } from '@/models'
+import {
+  type GroupId,
+  type GroupUserId,
+  type SsoUserId,
+  type TenantId,
+  User,
+} from '@/models'
 import * as utils from '@/services/utils'
 
 vi.mock('@/services/utils', () => ({
@@ -38,7 +44,6 @@ vi.mock('@/services/authenticated.axios', () => ({
 }))
 
 import { DuplicateEntityError, ValidationError } from '@/errors'
-import { User } from '@/models'
 import { groupService } from '@/services'
 
 describe('groupService', () => {
@@ -59,7 +64,7 @@ describe('groupService', () => {
       email: 'john.doe@example.com',
       firstName: 'John',
       lastName: 'Doe',
-      ssoUserId: '789',
+      ssoUserId: '789' as SsoUserId,
       userName: 'johndoe',
     },
     roles: [],

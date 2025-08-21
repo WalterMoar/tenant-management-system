@@ -4,6 +4,7 @@ import {
   Role,
   type RoleId,
   SsoUser,
+  type SsoUserId,
   Tenant,
   type TenantId,
   User,
@@ -27,7 +28,7 @@ describe('Tenant model', () => {
       new User(
         'user1',
         new SsoUser(
-          'sso1',
+          'sso1' as SsoUserId,
           'username1',
           'First',
           'Last',
@@ -39,7 +40,7 @@ describe('Tenant model', () => {
       new User(
         'user2',
         new SsoUser(
-          'sso2',
+          'sso2' as SsoUserId,
           'username2',
           'First2',
           'Last2',
@@ -89,7 +90,7 @@ describe('Tenant model', () => {
         {
           id: 'userA',
           ssoUser: new SsoUser(
-            'ssoA',
+            'ssoA' as SsoUserId,
             'userA',
             'FirstA',
             'LastA',
@@ -103,7 +104,7 @@ describe('Tenant model', () => {
         {
           id: 'userB',
           ssoUser: new SsoUser(
-            'ssoB',
+            'ssoB' as SsoUserId,
             'userB',
             'FirstB',
             'LastB',
@@ -152,7 +153,7 @@ describe('Tenant model', () => {
     const user = new User(
       'user1',
       new SsoUser(
-        ssoUserId,
+        ssoUserId as SsoUserId,
         'username1',
         'First',
         'Last',
@@ -186,7 +187,7 @@ describe('Tenant model', () => {
     const ownerUser = new User(
       'user1',
       new SsoUser(
-        'sso1',
+        'sso1' as SsoUserId,
         'username1',
         'First',
         'Last',
@@ -198,7 +199,7 @@ describe('Tenant model', () => {
     const otherUser = new User(
       'user2',
       new SsoUser(
-        'sso2',
+        'sso2' as SsoUserId,
         'username2',
         'First2',
         'Last2',
@@ -227,7 +228,7 @@ describe('Tenant model', () => {
     const user = new User(
       'user1',
       new SsoUser(
-        'sso1',
+        'sso1' as SsoUserId,
         'username1',
         'First',
         'Last',
@@ -255,7 +256,7 @@ describe('Tenant model', () => {
     const user = new User(
       'user1',
       new SsoUser(
-        'sso1',
+        'sso1' as SsoUserId,
         'username1',
         'First',
         'Last',
@@ -281,7 +282,7 @@ describe('Tenant model', () => {
     const unknownUser = new User(
       'user2',
       new SsoUser(
-        'sso2',
+        'sso2' as SsoUserId,
         'username2',
         'First2',
         'Last2',

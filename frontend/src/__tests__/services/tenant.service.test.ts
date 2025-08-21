@@ -37,14 +37,14 @@ vi.mock('@/services/authenticated.axios', () => ({
 }))
 
 import { DuplicateEntityError, ValidationError } from '@/errors'
-import { type RoleId, type TenantId, User } from '@/models'
+import { type RoleId, type SsoUserId, type TenantId, User } from '@/models'
 import { tenantService } from '@/services/tenant.service'
 
 describe('tenantService', () => {
   const tenantId = '1' as TenantId
   const userId = '123'
   const roleId = '456' as RoleId
-  const ssoUserId = '789'
+  const ssoUserId = '789' as SsoUserId
 
   const fakeRole = {
     id: roleId,

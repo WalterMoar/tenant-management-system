@@ -1,4 +1,9 @@
 /**
+ * Branded type for SSO User IDs to prevent mixing with other ID types.
+ */
+export type SsoUserId = string & { readonly __brand: 'SsoUserId' }
+
+/**
  * Represents a single SSO user.
  */
 export class SsoUser {
@@ -25,7 +30,7 @@ export class SsoUser {
   /**
    * The unique identifier for the user in the SSO system.
    */
-  ssoUserId: string
+  ssoUserId: SsoUserId
 
   /**
    * The user's username (optional).
@@ -43,7 +48,7 @@ export class SsoUser {
    * @param email - The user's email address (optional)
    */
   constructor(
-    ssoUserId: string,
+    ssoUserId: SsoUserId,
     userName: string | undefined,
     firstName: string,
     lastName: string,
@@ -76,7 +81,7 @@ export class SsoUser {
     firstName: string
     lastName: string
     userName?: string
-    ssoUserId: string
+    ssoUserId: SsoUserId
   }): SsoUser {
     return new SsoUser(
       apiData.ssoUserId,

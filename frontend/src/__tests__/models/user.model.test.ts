@@ -1,10 +1,10 @@
 import { describe, it, expect } from 'vitest'
-import { Role, type RoleId, SsoUser, User } from '@/models'
+import { Role, type RoleId, SsoUser, type SsoUserId, User } from '@/models'
 
 describe('User model', () => {
   it('constructor assigns properties correctly', () => {
     const ssoUser = new SsoUser(
-      'sso1',
+      'sso1' as SsoUserId,
       'username1',
       'First',
       'Last',
@@ -21,7 +21,7 @@ describe('User model', () => {
 
   it('constructor defaults roles to empty array if invalid', () => {
     const ssoUser = new SsoUser(
-      'sso2',
+      'sso2' as SsoUserId,
       'username2',
       'First2',
       'Last2',
@@ -38,7 +38,7 @@ describe('User model', () => {
     const apiData = {
       id: 'userApi',
       ssoUser: {
-        ssoUserId: 'ssoApi',
+        ssoUserId: 'ssoApi' as SsoUserId,
         userName: 'usernameApi',
         firstName: 'FirstApi',
         lastName: 'LastApi',
@@ -63,7 +63,7 @@ describe('User model', () => {
     const apiData = {
       id: 'userApiNoRoles',
       ssoUser: {
-        ssoUserId: 'ssoNoRoles',
+        ssoUserId: 'ssoNoRoles' as SsoUserId,
         userName: 'usernameNoRoles',
         firstName: 'FirstNoRoles',
         lastName: 'LastNoRoles',

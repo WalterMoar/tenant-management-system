@@ -1,10 +1,10 @@
 import { describe, it, expect } from 'vitest'
-import { SsoUser } from '@/models'
+import { SsoUser, type SsoUserId } from '@/models'
 
 describe('SsoUser model', () => {
   it('constructor assigns all properties correctly', () => {
     const ssoUser = new SsoUser(
-      'sso123',
+      'sso123' as SsoUserId,
       'jdoe',
       'John',
       'Doe',
@@ -22,7 +22,7 @@ describe('SsoUser model', () => {
 
   it('constructor works with missing optional fields', () => {
     const ssoUser = new SsoUser(
-      'sso456',
+      'sso456' as SsoUserId,
       undefined,
       'Jane',
       'Smith',
@@ -37,7 +37,7 @@ describe('SsoUser model', () => {
 
   it('fromApiData creates SsoUser instance correctly with all fields', () => {
     const apiData = {
-      ssoUserId: 'sso789',
+      ssoUserId: 'sso789' as SsoUserId,
       userName: 'jsmith',
       firstName: 'Joe',
       lastName: 'Smith',
@@ -58,7 +58,7 @@ describe('SsoUser model', () => {
 
   it('fromApiData creates SsoUser instance correctly without optional fields', () => {
     const apiData = {
-      ssoUserId: 'sso101',
+      ssoUserId: 'sso101' as SsoUserId,
       firstName: 'Alice',
       lastName: 'Wonderland',
       displayName: 'Alice W.',

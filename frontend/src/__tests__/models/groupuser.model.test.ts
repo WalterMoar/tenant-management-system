@@ -1,19 +1,26 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { GroupUser, type GroupUserId, User, Role } from '@/models'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+
+import {
+  GroupUser,
+  type GroupUserId,
+  Role,
+  type SsoUserId,
+  User,
+} from '@/models'
 
 const fakeSsoUser = {
-  ssoUserId: 'sso-123',
-  userName: 'jdoe', // optional, but good to provide
+  displayName: 'John Doe',
+  email: 'jdoe@example.com',
   firstName: 'John',
   lastName: 'Doe',
-  displayName: 'John Doe',
-  email: 'jdoe@example.com', // optional, but provided here
+  ssoUserId: 'sso-123' as SsoUserId,
+  userName: 'jdoe',
 }
 
 const fakeUserData = {
   id: 'user1',
-  ssoUser: fakeSsoUser,
   roles: [] as Role[],
+  ssoUser: fakeSsoUser,
 }
 
 describe('GroupUser model', () => {

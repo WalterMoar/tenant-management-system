@@ -1,4 +1,4 @@
-import { Role, SsoUser } from '@/models'
+import { Role, SsoUser, type SsoUserId } from '@/models'
 
 /**
  * Represents a user in the system.
@@ -81,8 +81,9 @@ export class User {
     // The SSO API doesn't always return the expected fields - try to be lenient
     // but note that if the username is undefined then it will cause issues.
     const attributes = searchData.attributes
-    const userId =
-      attributes.idir_user_guid?.[0] ?? attributes.idir_userid?.[0] ?? ''
+    const userId = (attributes.idir_user_guid?.[0] ??
+      attributes.idir_userid?.[0] ??
+      '') as SsoUserId
     const username = attributes.idir_username?.[0]
     const displayName =
       attributes.display_name?.[0] ?? attributes.displayName?.[0] ?? ''

@@ -1,6 +1,11 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { type TenantRequestId } from '@/models'
+import {
+  type SsoUserId,
+  type TenantRequestDetailFields,
+  type TenantRequestId,
+  User,
+} from '@/models'
 import * as utils from '@/services/utils'
 
 vi.mock('@/services/utils', () => ({
@@ -38,12 +43,11 @@ vi.mock('@/services/authenticated.axios', () => ({
 }))
 
 import { DuplicateEntityError, ValidationError } from '@/errors'
-import { type TenantRequestDetailFields, User } from '@/models'
 import { tenantRequestService } from '@/services'
 
 describe('tenantRequestService', () => {
   const tenantRequestId = '123' as TenantRequestId
-  const ssoUserId = '789'
+  const ssoUserId = '789' as SsoUserId
 
   const fakeUser: User = {
     id: '1',

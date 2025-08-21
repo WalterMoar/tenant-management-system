@@ -1,9 +1,10 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+
+import { Tenant, User, SsoUser, type SsoUserId } from '@/models'
 import {
   currentUserHasRole,
   currentUserIsOperationsAdmin,
 } from '@/utils/permissions'
-import { Tenant, User, SsoUser } from '@/models'
 
 // Mock the auth store
 const mockAuthStore = {
@@ -52,7 +53,7 @@ describe('User Permissions Utils', () => {
 
     it('should call tenant.userHasRole with current user and role name', () => {
       const mockSsoUser = new SsoUser(
-        '123',
+        '123' as SsoUserId,
         'john.doe',
         'John',
         'Doe',
@@ -72,7 +73,7 @@ describe('User Permissions Utils', () => {
 
     it('should return false when tenant.userHasRole returns false', () => {
       const mockSsoUser = new SsoUser(
-        '123',
+        '123' as SsoUserId,
         'john.doe',
         'John',
         'Doe',
@@ -91,7 +92,7 @@ describe('User Permissions Utils', () => {
 
     it('should work with different role names', () => {
       const mockSsoUser = new SsoUser(
-        '456',
+        '456' as SsoUserId,
         'jane.smith',
         'Jane',
         'Smith',
@@ -117,7 +118,7 @@ describe('User Permissions Utils', () => {
 
     it('should handle empty role name', () => {
       const mockSsoUser = new SsoUser(
-        '789',
+        '789' as SsoUserId,
         'bob.wilson',
         'Bob',
         'Wilson',
@@ -167,7 +168,7 @@ describe('User Permissions Utils', () => {
   describe('integration scenarios', () => {
     it('should handle operations admin checking role in tenant', () => {
       const mockSsoUser = new SsoUser(
-        '999',
+        '999' as SsoUserId,
         'admin.user',
         'Admin',
         'User',
@@ -192,7 +193,7 @@ describe('User Permissions Utils', () => {
 
     it('should handle non-operations admin with no tenant role', () => {
       const mockSsoUser = new SsoUser(
-        '888',
+        '888' as SsoUserId,
         'regular.user',
         'Regular',
         'User',
