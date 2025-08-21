@@ -1,4 +1,9 @@
 /**
+ * Branded type for Service IDs to prevent mixing with other ID types.
+ */
+export type ServiceId = string & { readonly __brand: 'ServiceId' }
+
+/**
  * Represents a service in the system.
  */
 export class Service {
@@ -12,7 +17,7 @@ export class Service {
   /**
    * Unique identifier for the service.
    */
-  id: string
+  id: ServiceId
 
   /**
    * Display name of the service.
@@ -27,7 +32,7 @@ export class Service {
    * @param createdDate - ISO8601 date string (YYYY-MM-DD) when service was
    *   created
    */
-  constructor(id: string, name: string, createdDate: string) {
+  constructor(id: ServiceId, name: string, createdDate: string) {
     this.createdDate = createdDate
     this.id = id
     this.name = name
@@ -48,7 +53,7 @@ export class Service {
    */
   static fromApiData(apiData: {
     createdDateTime: string
-    id: string
+    id: ServiceId
     name: string
   }): Service {
     return new Service(apiData.id, apiData.name, apiData.createdDateTime)

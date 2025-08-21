@@ -1,3 +1,5 @@
+import { type ServiceId, type TenantId } from '@/models'
+
 import { authenticatedAxios } from './authenticated.axios'
 import { logApiError } from './utils'
 
@@ -26,12 +28,12 @@ export const serviceService = {
   /**
    * Adds an existing shared service with a tenant.
    *
-   * @param {string} tenantId - The unique identifier of the tenant.
-   * @param {string} serviceId - The unique identifier of the shared service.
+   * @param {TenantId} tenantId - The unique identifier of the tenant.
+   * @param {ServiceId} serviceId - The unique identifier of the shared service.
    * @returns {Promise<object>} A promise that resolves to the result.
    * @throws Will throw an error if the API request fails.
    */
-  async addServiceToTenant(tenantId: string, serviceId: string) {
+  async addServiceToTenant(tenantId: TenantId, serviceId: ServiceId) {
     try {
       const requestBody = {
         sharedServiceId: serviceId,
@@ -53,12 +55,12 @@ export const serviceService = {
   /**
    * Retrieves all shared services associated with a specific tenant.
    *
-   * @param {string} tenantId - The unique identifier of the tenant.
+   * @param {TenantId} tenantId - The unique identifier of the tenant.
    * @returns {Promise<object[]>} A promise that resolves to an array of
    *   shared service objects associated with the tenant.
    * @throws Will throw an error if the API request fails.
    */
-  async getTenantServices(tenantId: string) {
+  async getTenantServices(tenantId: TenantId) {
     try {
       const response = await api.get(`/tenants/${tenantId}/shared-services`)
 

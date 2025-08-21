@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 
-import type { Service, Tenant } from '@/models'
+import type { Service, ServiceId, Tenant } from '@/models'
 import { ROLES } from '@/utils/constants'
 import { currentUserHasRole } from '@/utils/permissions'
 
@@ -22,13 +22,13 @@ const props = defineProps<{
  * @see https://vuejs.org/guide/typescript/composition-api.html#typing-component-emits
  */
 const emit = defineEmits<{
-  (event: 'add-service', serviceId: string): void // NOSONAR: S6598
+  (event: 'add-service', serviceId: ServiceId): void // NOSONAR: S6598
 }>()
 
 // --- Component State ---------------------------------------------------------
 
 const search = ref('')
-const selectedServiceId = ref('')
+const selectedServiceId = ref('' as ServiceId | '')
 
 // --- Computed Values ---------------------------------------------------------
 

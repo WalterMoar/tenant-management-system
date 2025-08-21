@@ -3,7 +3,7 @@ import { onMounted, ref } from 'vue'
 
 import ServiceManagement from '@/components/service/ServiceManagement.vue'
 import { useNotification } from '@/composables'
-import { Service, Tenant } from '@/models'
+import { Service, type ServiceId, Tenant } from '@/models'
 import { useServiceStore } from '@/stores'
 
 // --- Component Interface -----------------------------------------------------
@@ -25,7 +25,7 @@ const tenantServices = ref<Service[]>([])
 
 // --- Component Methods -------------------------------------------------------
 
-async function handleAddService(serviceId: string) {
+async function handleAddService(serviceId: ServiceId) {
   try {
     await serviceStore.addServiceToTenant(props.tenant.id, serviceId)
 

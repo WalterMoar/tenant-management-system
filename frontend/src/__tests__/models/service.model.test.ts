@@ -1,9 +1,14 @@
 import { describe, it, expect } from 'vitest'
-import { Service } from '@/models'
+
+import { Service, type ServiceId } from '@/models'
 
 describe('Service model', () => {
   it('constructor assigns all properties correctly', () => {
-    const service = new Service('service123', 'My Service', '2025-08-01')
+    const service = new Service(
+      'service123' as ServiceId,
+      'My Service',
+      '2025-08-01',
+    )
 
     expect(service.id).toBe('service123')
     expect(service.name).toBe('My Service')
@@ -12,7 +17,7 @@ describe('Service model', () => {
 
   it('fromApiData creates Service instance correctly', () => {
     const apiData = {
-      id: 'service456',
+      id: 'service456' as ServiceId,
       name: 'API Service',
       createdDateTime: '2025-08-01',
     }

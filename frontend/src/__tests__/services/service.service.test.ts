@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
+import { type ServiceId, type TenantId } from '@/models'
 import * as utils from '@/services/utils'
 
 vi.mock('@/services/utils', () => ({
@@ -35,8 +36,8 @@ vi.mock('@/services/authenticated.axios', () => ({
 import { serviceService } from '@/services/service.service'
 
 describe('serviceService', () => {
-  const tenantId = '1'
-  const serviceId = '123'
+  const tenantId = '1' as TenantId
+  const serviceId = '123' as ServiceId
 
   const fakeSharedService = {
     id: serviceId,

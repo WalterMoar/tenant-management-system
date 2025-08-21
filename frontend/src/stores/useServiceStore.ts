@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
-import { Service } from '@/models'
+import { Service, type ServiceId, type TenantId } from '@/models'
 import { serviceService } from '@/services'
 
 /**
@@ -35,11 +35,14 @@ export const useServiceStore = defineStore('service', () => {
   /**
    * Adds a service to a tenant.
    *
-   * @param {string} tenantId - The ID of the tenant.
-   * @param {string} serviceId - The ID of the service.
+   * @param {TenantId} tenantId - The ID of the tenant.
+   * @param {ServiceId} serviceId - The ID of the service.
    * @returns {Promise<unknown>} The API response.
    */
-  const addServiceToTenant = async (tenantId: string, serviceId: string) => {
+  const addServiceToTenant = async (
+    tenantId: TenantId,
+    serviceId: ServiceId,
+  ) => {
     const apiResponse = await serviceService.addServiceToTenant(
       tenantId,
       serviceId,
@@ -68,10 +71,10 @@ export const useServiceStore = defineStore('service', () => {
   /**
    * Fetches services for a tenant from the API and updates the store.
    *
-   * @param {string} tenantId - The ID of the tenant.
+   * @param {TenantId} tenantId - The ID of the tenant.
    * @returns {Promise<Service[]>} The list of tenant services.
    */
-  const fetchTenantServices = async (tenantId: string) => {
+  const fetchTenantServices = async (tenantId: TenantId) => {
     loading.value = true
     try {
       const serviceList = await serviceService.getTenantServices(tenantId)
@@ -89,10 +92,10 @@ export const useServiceStore = defineStore('service', () => {
   /**
    * Retrieves a service by its ID from the store.
    *
-   * @param {string} serviceId - The ID of the service.
+   * @param {ServiceId} serviceId - The ID of the service.
    * @returns {Service|undefined} The service if found, otherwise undefined.
    */
-  function getService(serviceId: string): Service | undefined {
+  function getService(serviceId: ServiceId): Service | undefined {
     return services.value.find((s) => s.id === serviceId)
   }
 
