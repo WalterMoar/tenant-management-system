@@ -1,5 +1,5 @@
 export { Group, type GroupDetailFields, type GroupId } from './group.model'
-export { GroupUser } from './groupuser.model'
+export { GroupUser, type GroupUserId } from './groupuser.model'
 export { Role } from './role.model'
 export { Service } from './service.model'
 export { SsoUser } from './ssouser.model'

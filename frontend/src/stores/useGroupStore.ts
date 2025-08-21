@@ -6,6 +6,7 @@ import {
   type GroupDetailFields,
   type GroupId,
   GroupUser,
+  type GroupUserId,
   type TenantId,
   User,
 } from '@/models'
@@ -144,14 +145,14 @@ export const useGroupStore = defineStore('group', () => {
    *
    * @param {TenantId} tenantId - The ID of the tenant.
    * @param {GroupId} groupId - The ID of the group.
-   * @param {string} groupUserId - The ID of the user in the group.
+   * @param {GroupUserId} groupUserId - The ID of the user in the group.
    * @throws {Error} If the group is not found in the store.
    * @returns {Promise<void>}
    */
   const removeGroupUser = async (
     tenantId: TenantId,
     groupId: GroupId,
-    groupUserId: string,
+    groupUserId: GroupUserId,
   ) => {
     // Grab the existing group from the store, to confirm the ID and for use
     // later.

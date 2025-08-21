@@ -5,7 +5,7 @@ import UserSearch from '@/components/group/UserSearch.vue'
 import ButtonSecondary from '@/components/ui/ButtonSecondary.vue'
 import FloatingActionButton from '@/components/ui/FloatingActionButton.vue'
 import SimpleDialog from '@/components/ui/SimpleDialog.vue'
-import type { Group, GroupUser, Tenant, User } from '@/models'
+import type { Group, GroupUser, GroupUserId, Tenant, User } from '@/models'
 import { type IdirSearchType, ROLES } from '@/utils/constants'
 import { currentUserHasRole } from '@/utils/permissions'
 
@@ -21,7 +21,7 @@ const props = defineProps<{
 const emit = defineEmits<{
   (event: 'add', user: User): void
   (event: 'cancel' | 'clear-search'): void
-  (event: 'delete', userId: string): void
+  (event: 'delete', groupUserId: GroupUserId): void
   (event: 'search', searchType: IdirSearchType, searchText: string): void
 }>()
 

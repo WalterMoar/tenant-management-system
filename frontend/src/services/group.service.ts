@@ -1,6 +1,6 @@
 import { authenticatedAxios } from './authenticated.axios'
 import { DuplicateEntityError, ValidationError } from '@/errors'
-import { type GroupId, type TenantId, User } from '@/models'
+import { type GroupId, type GroupUserId, type TenantId, User } from '@/models'
 import { isDuplicateEntityError, isValidationError, logApiError } from './utils'
 
 const api = authenticatedAxios()
@@ -149,7 +149,7 @@ export const groupService = {
    *
    * @param {TenantId} tenantId - The ID of the tenant.
    * @param {GroupId} groupId - The ID of the group to remove the user from.
-   * @param {string} groupUserId - The ID of the group user to remove.
+   * @param {GroupUserId} groupUserId - The ID of the group user to remove.
    * @returns {Promise<void>} A promise that resolves when the user is
    *   successfully removed.
    * @throws Will throw an error if the API request fails.
@@ -157,7 +157,7 @@ export const groupService = {
   async removeUserFromGroup(
     tenantId: TenantId,
     groupId: GroupId,
-    groupUserId: string,
+    groupUserId: GroupUserId,
   ) {
     try {
       await api.delete(

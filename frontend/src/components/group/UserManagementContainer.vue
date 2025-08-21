@@ -4,7 +4,7 @@ import { ref } from 'vue'
 import GroupUserManagement from '@/components/group/GroupUserManagement.vue'
 import { useNotification } from '@/composables'
 import { DuplicateEntityError } from '@/errors'
-import { Group, Tenant, User } from '@/models'
+import { Group, type GroupUserId, Tenant, User } from '@/models'
 import { useGroupStore, useUserStore } from '@/stores'
 import { type IdirSearchType, IDIR_SEARCH_TYPE } from '@/utils/constants'
 
@@ -53,7 +53,7 @@ async function handleClearSearch() {
   searchResults.value = null
 }
 
-async function handleDeleteUser(groupUserId: string) {
+async function handleDeleteUser(groupUserId: GroupUserId) {
   try {
     await groupStore.removeGroupUser(
       props.tenant.id,

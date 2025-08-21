@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { GroupUser, User, Role } from '@/models'
+import { GroupUser, type GroupUserId, User, Role } from '@/models'
 
 const fakeSsoUser = {
   ssoUserId: 'sso-123',
@@ -35,14 +35,17 @@ describe('GroupUser model', () => {
   })
 
   it('constructor assigns properties correctly', () => {
-    const groupUser = new GroupUser('groupUserId', mockedUserInstance)
+    const groupUser = new GroupUser(
+      'groupUserId' as GroupUserId,
+      mockedUserInstance,
+    )
     expect(groupUser.id).toBe('groupUserId')
     expect(groupUser.user).toBe(mockedUserInstance)
   })
 
   it('fromApiData converts API data to GroupUser instance correctly', () => {
     const apiData = {
-      id: 'groupUser123',
+      id: 'groupUser123' as GroupUserId,
       user: fakeUserData, // raw user data matching User.fromApiData input
     }
 
