@@ -1,7 +1,7 @@
 import { authenticatedAxios } from './authenticated.axios'
 import { isDuplicateEntityError, isValidationError, logApiError } from './utils'
 import { DuplicateEntityError, ValidationError } from '@/errors'
-import { User } from '@/models'
+import { type TenantId, User } from '@/models'
 
 const api = authenticatedAxios()
 
@@ -12,12 +12,12 @@ export const tenantService = {
    * Note: The format of the user in the request body differs from elsewhere,
    * so it requires explicit construction.
    *
-   * @param {string} tenantId - The unique identifier of the tenant.
+   * @param {TenantId} tenantId - The unique identifier of the tenant.
    * @param {User} user - The user to add.
    * @returns {Promise<object>} A promise resolving to the added user object.
    * @throws Will throw an error if the API request fails.
    */
-  async addUser(tenantId: string, user: User) {
+  async addUser(tenantId: TenantId, user: User) {
     try {
       // It's a little tricky that the format of the user here is unlike
       // anywhere else, so we need to construct the request body.
@@ -62,7 +62,7 @@ export const tenantService = {
    * @throws An error if the API request fails.
    */
   async assignUserRoles(
-    tenantId: string,
+    tenantId: TenantId,
     userId: string,
     roleId: string,
   ): Promise<void> {
@@ -129,11 +129,11 @@ export const tenantService = {
   /**
    * Retrieves the specified tenant.
    *
-   * @param {string} tenantId - The ID of the tenant.
+   * @param {TenantId} tenantId - The ID of the tenant.
    * @returns {Promise<object>} A promise that resolves a tenant-like object.
    * @throws Will throw an error if the API request fails.
    */
-  async getTenant(tenantId: string) {
+  async getTenant(tenantId: TenantId) {
     try {
       const response = await api.get(
         `/tenants/${tenantId}?expand=tenantUserRoles`,
@@ -150,12 +150,12 @@ export const tenantService = {
   /**
    * Retrieves the roles assigned within a specific tenant.
    *
-   * @param {string} tenantId - The unique identifier of the tenant.
+   * @param {TenantId} tenantId - The unique identifier of the tenant.
    * @returns {Promise<object[]>} A promise that resolves to an array of role-like
    *   objects.
    * @throws Will throw an error if the API request fails.
    */
-  async getTenantRoles(tenantId: string) {
+  async getTenantRoles(tenantId: TenantId) {
     try {
       const response = await api.get(`/tenants/${tenantId}/roles`)
 
@@ -170,13 +170,13 @@ export const tenantService = {
   /**
    * Retrieves the roles assigned to a user within a specific tenant.
    *
-   * @param {string} tenantId - The unique identifier of the tenant.
+   * @param {TenantId} tenantId - The unique identifier of the tenant.
    * @param {string} userId - The unique identifier of the user.
    * @returns {Promise<object[]>} A promise that resolves to an array of role-like
    *   objects.
    * @throws Will throw an error if the API request fails.
    */
-  async getUserRoles(tenantId: string, userId: string) {
+  async getUserRoles(tenantId: TenantId, userId: string) {
     try {
       const response = await api.get(
         `/tenants/${tenantId}/users/${userId}/roles`,
@@ -215,12 +215,12 @@ export const tenantService = {
   /**
    * Retrieves all users associated with a specified tenant.
    *
-   * @param {string} tenantId - The unique identifier of the tenant.
+   * @param {TenantId} tenantId - The unique identifier of the tenant.
    * @returns {Promise<object[]>} A promise that resolves to an array of
    *   user-like objects.
    * @throws Will throw an error if the API request fails.
    */
-  async getUsers(tenantId: string) {
+  async getUsers(tenantId: TenantId) {
     try {
       const response = await api.get(`/tenants/${tenantId}/users`)
 
@@ -246,7 +246,7 @@ export const tenantService = {
    * @throws An error if the API request fails.
    */
   async removeUserRole(
-    tenantId: string,
+    tenantId: TenantId,
     userId: string,
     roleId: string,
   ): Promise<void> {
@@ -262,7 +262,7 @@ export const tenantService = {
   /**
    * Updates an existing tenant with the specified details.
    *
-   * @param {string} id - The ID of the tenant to update.
+   * @param {TenantId} tenantId - The ID of the tenant to update.
    * @param {string} name - The new name of the tenant.
    * @param {string} ministryName - The new ministry name for the tenant.
    * @param {string} description - The new description for the tenant.
@@ -271,7 +271,7 @@ export const tenantService = {
    * @throws Will throw an error if the API request fails.
    */
   async updateTenant(
-    id: string,
+    tenantId: TenantId,
     name: string,
     ministryName: string,
     description: string,
@@ -283,7 +283,7 @@ export const tenantService = {
         name: name,
       }
 
-      const response = await api.put(`/tenants/${id}`, requestBody)
+      const response = await api.put(`/tenants/${tenantId}`, requestBody)
 
       return response.data.data.tenant
     } catch (error: unknown) {

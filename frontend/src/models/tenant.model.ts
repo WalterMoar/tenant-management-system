@@ -2,6 +2,11 @@ import { User } from '@/models'
 import { ROLES } from '@/utils/constants'
 
 /**
+ * Branded type for Tenant IDs to prevent mixing with other ID types.
+ */
+export type TenantId = string & { readonly __brand: 'TenantId' }
+
+/**
  * Utility type that represents the subset of Tenant properties used in the form
  * that edits these fields.
  */
@@ -34,7 +39,7 @@ export class Tenant {
   /**
    * Unique identifier for the tenant.
    */
-  id: string
+  id: TenantId
 
   /**
    * Display name of the tenant.
@@ -67,7 +72,7 @@ export class Tenant {
     createdBy: string,
     createdDate: string,
     description: string,
-    id: string,
+    id: TenantId,
     name: string,
     ministryName: string,
     users: User[],
@@ -112,7 +117,7 @@ export class Tenant {
     createdBy: string
     createdDateTime: string
     description: string
-    id: string
+    id: TenantId
     name: string
     ministryName: string
     users: User[]

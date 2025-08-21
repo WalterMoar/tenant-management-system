@@ -1,6 +1,6 @@
 import { describe, expect, it, beforeEach, afterEach, vi } from 'vitest'
 
-import { Role, SsoUser, Tenant, User } from '@/models'
+import { Role, SsoUser, Tenant, type TenantId, User } from '@/models'
 import { ROLES } from '@/utils/constants'
 
 describe('Tenant model', () => {
@@ -47,7 +47,7 @@ describe('Tenant model', () => {
       'creatorUser',
       '2025-08-01',
       'Tenant description',
-      'tenant123',
+      'tenant123' as TenantId,
       'Tenant Name',
       'Ministry',
       users,
@@ -61,7 +61,7 @@ describe('Tenant model', () => {
       'creatorUser',
       '2025-08-01',
       'Tenant description',
-      'tenant123',
+      'tenant123' as TenantId,
       'Tenant Name',
       'Ministry',
       null as unknown as User[],
@@ -75,7 +75,7 @@ describe('Tenant model', () => {
       createdBy: 'creatorUser',
       createdDateTime: '2025-08-01',
       description: 'API description',
-      id: 'tenant456',
+      id: 'tenant456' as TenantId,
       name: 'API Tenant',
       ministryName: 'Ministry',
       users: [
@@ -124,7 +124,7 @@ describe('Tenant model', () => {
       createdBy: 'creatorUser',
       createdDateTime: '2025-08-01',
       description: 'API description',
-      id: 'tenant789',
+      id: 'tenant789' as TenantId,
       name: 'API Tenant',
       ministryName: 'Ministry',
       users: null,
@@ -156,7 +156,7 @@ describe('Tenant model', () => {
       'creatorUser',
       '2025-08-01',
       '',
-      'tenant1',
+      'tenant1' as TenantId,
       'Name',
       'Ministry',
       [user],
@@ -199,7 +199,7 @@ describe('Tenant model', () => {
       'creatorUser',
       '2025-08-01',
       '',
-      'tenant1',
+      'tenant1' as TenantId,
       'Name',
       'Ministry',
       [ownerUser, otherUser],
@@ -227,7 +227,7 @@ describe('Tenant model', () => {
       'creatorUser',
       '2025-08-01',
       '',
-      'tenant1',
+      'tenant1' as TenantId,
       'Name',
       'Ministry',
       [user],
@@ -255,7 +255,7 @@ describe('Tenant model', () => {
       'creatorUser',
       '2025-08-01',
       '',
-      'tenant1',
+      'tenant1' as TenantId,
       'Name',
       'Ministry',
       [user],

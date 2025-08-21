@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
-import { Tenant, type TenantDetailFields, User } from '@/models'
+import { Tenant, type TenantDetailFields, type TenantId, User } from '@/models'
 import { tenantService } from '@/services'
 
 /**
@@ -69,10 +69,10 @@ export const useTenantStore = defineStore('tenant', () => {
   /**
    * Fetches a tenant by ID from the API and updates the store.
    *
-   * @param {string} tenantId - The ID of the tenant.
+   * @param {TenantId} tenantId - The ID of the tenant.
    * @returns {Promise<Tenant>} The fetched tenant.
    */
-  const fetchTenant = async (tenantId: string) => {
+  const fetchTenant = async (tenantId: TenantId) => {
     loading.value = true
     try {
       const tenantData = await tenantService.getTenant(tenantId)
@@ -103,10 +103,10 @@ export const useTenantStore = defineStore('tenant', () => {
   /**
    * Retrieves a tenant by its ID from the store.
    *
-   * @param {string} tenantId - The ID of the tenant.
+   * @param {TenantId} tenantId - The ID of the tenant.
    * @returns {Tenant|undefined} The tenant if found, otherwise undefined.
    */
-  function getTenant(tenantId: string): Tenant | undefined {
+  function getTenant(tenantId: TenantId): Tenant | undefined {
     return tenants.value.find((t) => t.id === tenantId)
   }
 
@@ -137,24 +137,24 @@ export const useTenantStore = defineStore('tenant', () => {
   /**
    * Updates the details of a tenant.
    *
-   * @param {string} id - The ID of the tenant to update.
+   * @param {TenantId} tenantId - The ID of the tenant to update.
    * @param {TenantDetailFields} tenantDetails - The updated tenant details.
    * @throws {Error} If the tenant is not found in the store.
    * @returns {Promise<void>}
    */
   const updateTenantDetails = async (
-    id: string,
+    tenantId: TenantId,
     tenantDetails: TenantDetailFields,
   ) => {
     // Grab the existing tenant from the store, to confirm the ID and for use
     // later.
-    const tenant = getTenant(id)
+    const tenant = getTenant(tenantId)
     if (!tenant) {
-      throw new Error(`Tenant with ID ${id} not found`)
+      throw new Error(`Tenant with ID ${tenantId} not found`)
     }
 
     const apiResponse = await tenantService.updateTenant(
-      id,
+      tenantId,
       tenantDetails.name,
       tenantDetails.ministryName,
       tenantDetails.description,
